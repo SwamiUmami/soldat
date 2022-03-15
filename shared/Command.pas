@@ -242,7 +242,7 @@ begin
     Exit;
   end;
 
-  if UDP.NetworkingUtil.GetConfigValueInfo(ESteamNetworkingConfigValue(StrToInt(Args[1])), ConfigName, @OutDataType, @OutScope, @OutNextValue) then
+  if UDP.NetworkingUtil.GetConfigValueInfo(ESteamNetworkingConfigValue(StrToInt(Args[1])), @ConfigName, @OutDataType, @OutScope, @OutNextValue) then
   begin
     if OutDataType = k_ESteamNetworkingConfig_Int32 then
     begin
@@ -283,7 +283,7 @@ begin
   IntegerValue := 1;
   UDP.NetworkingUtil.SetConfigValue(k_ESteamNetworkingConfig_EnumerateDevVars, k_ESteamNetworkingConfig_Global, 0, k_ESteamNetworkingConfig_Int32, @IntegerValue);
   {$ENDIF}
-  while UDP.NetworkingUtil.GetConfigValueInfo(OutNextValue, ConfigName, @OutDataType, @OutScope, @OutNextValue) do
+  while UDP.NetworkingUtil.GetConfigValueInfo(OutNextValue, @ConfigName, @OutDataType, @OutScope, @OutNextValue) do
   begin
     if OutDataType = k_ESteamNetworkingConfig_Int32 then
     begin

@@ -1757,11 +1757,11 @@ function SteamAPI_ISteamNetworkingUtils_SetConfigValue(instancePtr: ISteamNetwor
   eDataType: ESteamNetworkingConfigDataType; const pValue: Pointer): Boolean; cdecl; external GNSLIB;
 function SteamAPI_ISteamNetworkingUtils_GetConfigValue(instancePtr: ISteamNetworkingUtils; eValue: ESteamNetworkingConfigValue; eScopeType: ESteamNetworkingConfigScope; scopeObj: intptr;
   pOutDataType: PESteamNetworkingConfigDataType; var pResult; cbResult: pcsize_t): ESteamNetworkingGetConfigValueResult; cdecl; external GNSLIB;
-function SteamAPI_ISteamNetworkingUtils_GetConfigValueInfo(instancePtr: ISteamNetworkingUtils; eValue: ESteamNetworkingConfigValue; var pOutName: PAnsiChar; pOutDataType: PESteamNetworkingConfigDataType; pOutScope: PESteamNetworkingConfigScope; pOutNextValue: PESteamNetworkingConfigValue): Boolean; cdecl; external GNSLIB;
+function SteamAPI_ISteamNetworkingUtils_GetConfigValueInfo(instancePtr: ISteamNetworkingUtils; eValue: ESteamNetworkingConfigValue; const pOutName: PPChar; pOutDataType: PESteamNetworkingConfigDataType; pOutScope: PESteamNetworkingConfigScope; pOutNextValue: PESteamNetworkingConfigValue): Boolean; cdecl; external GNSLIB;
 function SteamAPI_ISteamNetworkingUtils_GetFirstConfigValue(instancePtr: ISteamNetworkingUtils): ESteamNetworkingConfigValue; cdecl; external GNSLIB;
-
-procedure SteamAPI_SteamNetworkingMessage_t_Release(pIMsg: PSteamNetworkingMessage_t); cdecl; external GNSLIB;
 {$ENDIF}
+procedure SteamAPI_SteamNetworkingMessage_t_Release(pIMsg: PSteamNetworkingMessage_t); cdecl; external GNSLIB;
+
 
 type
   TSteamNetworkingSockets = class
@@ -1861,7 +1861,7 @@ type
     {$ENDIF}
     function GetConfigValue(eValue: ESteamNetworkingConfigValue; eScopeType: ESteamNetworkingConfigScope; scopeObj: intptr;
       pOutDataType: PESteamNetworkingConfigDataType; var pResult; cbResult: pcsize_t): ESteamNetworkingGetConfigValueResult;
-    function GetConfigValueInfo(eValue: ESteamNetworkingConfigValue; var pOutName: PAnsiChar; pOutDataType: PESteamNetworkingConfigDataType; pOutScope: PESteamNetworkingConfigScope; pOutNextValue: PESteamNetworkingConfigValue): Boolean;
+    function GetConfigValueInfo(eValue: ESteamNetworkingConfigValue; const pOutName: PPChar; pOutDataType: PESteamNetworkingConfigDataType; pOutScope: PESteamNetworkingConfigScope; pOutNextValue: PESteamNetworkingConfigValue): Boolean;
     function GetFirstConfigValue(): ESteamNetworkingConfigValue;
     {$IFDEF STEAM}
     //procedure SteamNetworkingIPAddr_ToString(pAddr: PSteamNetworkingIPAddr; buf: PChar; cbBuf: csize_t; bWithPort: Boolean); cdecl;
@@ -2115,7 +2115,7 @@ function TSteamNetworkingUtils.GetConfigValue(eValue: ESteamNetworkingConfigValu
 begin
   Result := SteamAPI_ISteamNetworkingUtils_GetConfigValue(GameNetworkingUtilsInterface, eValue, eScopeType, scopeObj, pOutDataType, pResult, cbResult);
 end;
-function TSteamNetworkingUtils.GetConfigValueInfo(eValue: ESteamNetworkingConfigValue; var pOutName: PAnsiChar; pOutDataType: PESteamNetworkingConfigDataType; pOutScope: PESteamNetworkingConfigScope; pOutNextValue: PESteamNetworkingConfigValue): Boolean;
+function TSteamNetworkingUtils.GetConfigValueInfo(eValue: ESteamNetworkingConfigValue; const pOutName: PPChar; pOutDataType: PESteamNetworkingConfigDataType; pOutScope: PESteamNetworkingConfigScope; pOutNextValue: PESteamNetworkingConfigValue): Boolean;
 begin
   Result := SteamAPI_ISteamNetworkingUtils_GetConfigValueInfo(GameNetworkingUtilsInterface, eValue, pOutName, pOutDataType, pOutScope, pOutNextValue);
 end;
